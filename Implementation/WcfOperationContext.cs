@@ -287,21 +287,22 @@
             return context;
         }
 
-        private CoreWCF.ServiceSecurityContext GetSecurityContext()
-        {
-            // TODO: server
-            return null;
-            // try
-            // {
-            //     return this.context.ServiceSecurityContext;
-            // }
-            // catch (ObjectDisposedException)
-            // {
-            //     // WCF message has been closed already
-            //     WcfEventSource.Log.RequestMessageClosed("reading", "ServiceSecurityContext");
-            //     return null;
-            // }
-        }
+        // TODO: server
+        // private ServiceSecurityContext GetSecurityContext()
+        // {
+        //     // TODO: server
+        //     return null;
+        //     // try
+        //     // {
+        //     //     return this.context.ServiceSecurityContext;
+        //     // }
+        //     // catch (ObjectDisposedException)
+        //     // {
+        //     //     // WCF message has been closed already
+        //     //     WcfEventSource.Log.RequestMessageClosed("reading", "ServiceSecurityContext");
+        //     //     return null;
+        //     // }
+        // }
 
         private string DiscoverOperationName(OperationContext operationContext)
         {

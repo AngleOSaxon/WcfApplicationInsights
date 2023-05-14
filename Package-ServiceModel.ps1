@@ -1,0 +1,1 @@
+dotnet pack -c Release /p:Version=0.1.0.0-beta /p:PackageId=WcfApplicationInsights.ServiceModel
