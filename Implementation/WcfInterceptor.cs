@@ -9,7 +9,7 @@
     using Microsoft.ApplicationInsights.Extensibility;
     using TelemetryModules = Microsoft.ApplicationInsights.Extensibility.Implementation.TelemetryModules;
 
-    internal class WcfInterceptor : IDispatchMessageInspector, IErrorHandler
+    internal class WcfInterceptor : IDispatchMessageInspector //, IErrorHandler // TODO: server
     {
         private TelemetryConfiguration configuration;
         private ContractFilter contractFilter;
@@ -39,7 +39,8 @@
 
                 if (!this.LogTelemetryFor(context))
                 {
-                    WcfEventSource.Log.OperationIgnored(context.ContractName, context.ContractNamespace, context.OperationName);
+                    // TODO: Server
+                    //WcfEventSource.Log.OperationIgnored(context.ContractName, context.ContractNamespace, context.OperationName);
                     return null;
                 }
 
@@ -155,10 +156,12 @@
                 return true;
             }
 
-            return this.contractFilter.ShouldProcess(
-                context.ContractName,
-                context.ContractNamespace,
-                context.OperationName);
+            return true;
+            // TODO: server
+            // return this.contractFilter.ShouldProcess(
+            //     context.ContractName,
+            //     context.ContractNamespace,
+            //     context.OperationName);
         }
     }
 }

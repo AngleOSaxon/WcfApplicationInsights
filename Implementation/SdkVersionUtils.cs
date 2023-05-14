@@ -8,10 +8,7 @@
     {
         public static string GetAssemblyVersion()
         {
-            return typeof(SdkVersionUtils).Assembly.GetCustomAttributes(false)
-                    .OfType<AssemblyFileVersionAttribute>()
-                    .First()
-                    .Version;
+            return System.Reflection.Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "unknown";
         }
     }
 }

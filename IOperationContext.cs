@@ -16,10 +16,11 @@
         /// </summary>
         string OperationId { get; }
 
+        // TODO: server
         /// <summary>
         /// Gets the URI of the service endpoint.
         /// </summary>
-        Uri EndpointUri { get; }
+        // Uri EndpointUri { get; }
 
         /// <summary>
         /// Gets the URI the message was addressed to.
@@ -36,30 +37,32 @@
         /// </summary>
         bool OwnsRequest { get; }
 
-        /// <summary>
-        /// Gets the name of the service contract being invoked.
-        /// </summary>
-        string ContractName { get; }
+        // TODO: Server
+        // /// <summary>
+        // /// Gets the name of the service contract being invoked.
+        // /// </summary>
+        // string ContractName { get; }
 
-        /// <summary>
-        /// Gets the namespace of the service contract being invoked.
-        /// </summary>
-        string ContractNamespace { get; }
+        // /// <summary>
+        // /// Gets the namespace of the service contract being invoked.
+        // /// </summary>
+        // string ContractNamespace { get; }
 
-        /// <summary>
-        /// Gets the name of the operation being invoked.
-        /// </summary>
-        string OperationName { get; }
+        // /// <summary>
+        // /// Gets the name of the operation being invoked.
+        // /// </summary>
+        // string OperationName { get; }
 
         /// <summary>
         /// Gets the SOAP Action of the operation being invoked.
         /// </summary>
         string SoapAction { get; }
 
+        // TODO: Server
         /// <summary>
         /// Gets the service security context.
         /// </summary>
-        ServiceSecurityContext SecurityContext { get; }
+        // CoreWCF.ServiceSecurityContext SecurityContext { get; }
 
         /// <summary>
         /// Checks if the incoming message has a given property.

@@ -1,9 +1,10 @@
 ﻿namespace WcfApplicationInsights
 {
     using System;
+    using Microsoft.ApplicationInsights;
     using Microsoft.ApplicationInsights.Extensibility;
     using WcfApplicationInsights.Implementation;
-    using Microsoft.Diagnostics.Instrumentation.Extensions.Intercept;
+    //using Microsoft.Diagnostics.Instrumentation.Extensions.Intercept;
 
     /// <summary>
     /// Provides telemetry for web service calls done through the
@@ -122,61 +123,63 @@
                 this.SoapRootOperationIdHeaderName = CorrelationHeaders.SoapStandardRootIdHeader;
             }
 
-            if (Decorator.IsHostEnabled())
-            {
-                WcfClientEventSource.Log.ClientDependencyTrackingInfo("Profiler is attached");
-                WcfClientEventSource.Log.ClientDependencyTrackingInfo("Agent version: " + Decorator.GetAgentVersion());
-                if (!this.DisableRuntimeInstrumentation)
-                {
-                    this.wcfClientProcessing = new ProfilerWcfClientProcessing(this);
-                    this.DecorateProfilerForWcfClientProcessing();
-                }
-                else
-                {
-                    WcfClientEventSource.Log.ClientDependencyTrackingInfo("Runtime Instrumentation is disabled.");
-                }
-            }
+            // TODO: check if needed and portable
+            // if (Decorator.IsHostEnabled())
+            // {
+            //     WcfClientEventSource.Log.ClientDependencyTrackingInfo("Profiler is attached");
+            //     WcfClientEventSource.Log.ClientDependencyTrackingInfo("Agent version: " + Decorator.GetAgentVersion());
+            //     if (!this.DisableRuntimeInstrumentation)
+            //     {
+            //         this.wcfClientProcessing = new ProfilerWcfClientProcessing(this);
+            //         this.DecorateProfilerForWcfClientProcessing();
+            //     }
+            //     else
+            //     {
+            //         WcfClientEventSource.Log.ClientDependencyTrackingInfo("Runtime Instrumentation is disabled.");
+            //     }
+            // }
         }
 
-        private void DecorateProfilerForWcfClientProcessing()
-        {
-            const string Assembly = "System.ServiceModel";
-            const string Module = "System.ServiceModel.dll";
-            const string ClassName = "System.ServiceModel.ChannelFactory";
+        // Likely not directly portable and only *required* for automated instrumentation
+        // private void DecorateProfilerForWcfClientProcessing()
+        // {
+        //     const string Assembly = "System.ServiceModel";
+        //     const string Module = "System.ServiceModel.dll";
+        //     const string ClassName = "System.ServiceModel.ChannelFactory";
 
-            // void InitializeEndpoint(ServiceEndpoint endpoint)
-            Functions.Decorate(
-                Assembly,
-                Module,
-                ClassName + ".InitializeEndpoint",
-                this.wcfClientProcessing.OnStartInitializeEndpoint1,
-                this.wcfClientProcessing.OnEndInitializeEndpoint1,
-                null,
-                isStatic: false,
-                isSafe: true);
+        //     // void InitializeEndpoint(ServiceEndpoint endpoint)
+        //     Functions.Decorate(
+        //         Assembly,
+        //         Module,
+        //         ClassName + ".InitializeEndpoint",
+        //         this.wcfClientProcessing.OnStartInitializeEndpoint1,
+        //         this.wcfClientProcessing.OnEndInitializeEndpoint1,
+        //         null,
+        //         isStatic: false,
+        //         isSafe: true);
 
-            // void InitializeEndpoint(Binding binding, EndpointAddress address)
-            // void InitializeEndpoint(string configurationName, EndpointAddress address)
-            Functions.Decorate(
-                Assembly,
-                Module,
-                ClassName + ".InitializeEndpoint",
-                this.wcfClientProcessing.OnStartInitializeEndpoint2,
-                this.wcfClientProcessing.OnEndInitializeEndpoint2,
-                null,
-                isStatic: false,
-                isSafe: true);
+        //     // void InitializeEndpoint(Binding binding, EndpointAddress address)
+        //     // void InitializeEndpoint(string configurationName, EndpointAddress address)
+        //     Functions.Decorate(
+        //         Assembly,
+        //         Module,
+        //         ClassName + ".InitializeEndpoint",
+        //         this.wcfClientProcessing.OnStartInitializeEndpoint2,
+        //         this.wcfClientProcessing.OnEndInitializeEndpoint2,
+        //         null,
+        //         isStatic: false,
+        //         isSafe: true);
 
-            // void InitializeEndpoint(string configurationName, EndpointAddress address, Configuration configuration)
-            Functions.Decorate(
-                Assembly,
-                Module,
-                ClassName + ".InitializeEndpoint",
-                this.wcfClientProcessing.OnStartInitializeEndpoint3,
-                this.wcfClientProcessing.OnEndInitializeEndpoint3,
-                null,
-                isStatic: false,
-                isSafe: true);
-        }
+        //     // void InitializeEndpoint(string configurationName, EndpointAddress address, Configuration configuration)
+        //     Functions.Decorate(
+        //         Assembly,
+        //         Module,
+        //         ClassName + ".InitializeEndpoint",
+        //         this.wcfClientProcessing.OnStartInitializeEndpoint3,
+        //         this.wcfClientProcessing.OnEndInitializeEndpoint3,
+        //         null,
+        //         isStatic: false,
+        //         isSafe: true);
+        // }
     }
 }

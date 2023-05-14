@@ -38,7 +38,10 @@
 
             // OperationContext.IsUserContext probably does the same thing
             // but exact semantics are not documented.
-            return context.Host == null;
+            // TODO: server
+            // Since this is all client-side currently, can just return true
+            //return context.Host == null;
+            return true;
         }
     }
 }

@@ -72,7 +72,7 @@
 
         private void AddBehaviorIfNotPresent(ServiceEndpoint endpoint)
         {
-            if (endpoint.Behaviors.OfType<ClientTelemetryEndpointBehavior>().Any())
+            if (endpoint.EndpointBehaviors.OfType<ClientTelemetryEndpointBehavior>().Any())
             {
                 // don't add behavior if it's already been added by user code
                 // or the configuration
@@ -88,7 +88,7 @@
                 SoapHeaderNamespace = this.trackingModule.SoapHeaderNamespace,
                 IgnoreChannelEvents = this.trackingModule.IgnoreChannelEvents
             };
-            endpoint.Behaviors.Add(behavior);
+            endpoint.EndpointBehaviors.Add(behavior);
         }
     }
 }

@@ -3,6 +3,7 @@
     using System;
     using System.ServiceModel;
     using System.ServiceModel.Channels;
+    using Microsoft.ApplicationInsights;
     using Microsoft.ApplicationInsights.DataContracts;
 
     internal abstract class ClientTelemetryChannelBase : IDisposable

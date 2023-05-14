@@ -4,6 +4,7 @@
     using System.ServiceModel.Channels;
     using System.ServiceModel.Description;
     using System.ServiceModel.Dispatcher;
+    using Microsoft.ApplicationInsights;
     using Microsoft.ApplicationInsights.Extensibility;
     using Microsoft.ApplicationInsights.Extensibility.Implementation;
     using WcfApplicationInsights.Implementation;

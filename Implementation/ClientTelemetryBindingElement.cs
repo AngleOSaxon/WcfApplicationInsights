@@ -2,6 +2,7 @@
 {
     using System;
     using System.ServiceModel.Channels;
+    using Microsoft.ApplicationInsights;
 
     internal sealed class ClientTelemetryBindingElement : BindingElement
     {

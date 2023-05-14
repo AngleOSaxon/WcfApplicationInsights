@@ -37,7 +37,9 @@
 
         private void UpdateOperationContext(IOperationContext operation, OperationContext context)
         {
-            context.Name = operation.ContractName + '.' + operation.OperationName;
+            // TODO: server
+            context.Name = "<unknown>";
+            //context.Name = operation.ContractName + '.' + operation.OperationName;
         }
     }
 }

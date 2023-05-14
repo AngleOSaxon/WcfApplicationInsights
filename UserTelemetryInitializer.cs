@@ -40,11 +40,11 @@
                 return;
             }
 
-            var ctxt = operation.SecurityContext;
-            if (ctxt != null && !ctxt.IsAnonymous && ctxt.PrimaryIdentity != null)
-            {
-                userContext.Id = ctxt.PrimaryIdentity.Name;
-            }
+            // var ctxt = operation.SecurityContext;
+            // if (ctxt != null && !ctxt.IsAnonymous && ctxt.PrimaryIdentity != null)
+            // {
+            //     userContext.Id = ctxt.PrimaryIdentity.Name;
+            // }
 
             // we store this here (even if it's null), to avoid
             // having to check the request security context later on

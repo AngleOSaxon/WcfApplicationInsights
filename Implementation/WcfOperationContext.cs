@@ -3,9 +3,10 @@
     using System;
     using System.Collections.Concurrent;
     using System.Runtime.Remoting;
-    using System.Runtime.Remoting.Messaging;
+    //using System.Runtime.Remoting.Messaging;
     using System.ServiceModel;
     using System.ServiceModel.Dispatcher;
+    using Microsoft.ApplicationInsights;
     using Microsoft.ApplicationInsights.DataContracts;
 
     internal class WcfOperationContext : IOperationContext, IExtension<OperationContext>, IOperationContextState
@@ -53,30 +54,31 @@
 
         public bool OwnsRequest { get; private set; }
 
-        public string ContractName
-        {
-            get { return this.context.EndpointDispatcher.ContractName; }
-        }
+        // TODO: Server
+        // public string ContractName
+        // {
+        //     get { return this.context.EndpointDispatcher.ContractName; }
+        // }
 
-        public string ContractNamespace
-        {
-            get { return this.context.EndpointDispatcher.ContractNamespace; }
-        }
+        // public string ContractNamespace
+        // {
+        //     get { return this.context.EndpointDispatcher.ContractNamespace; }
+        // }
 
-        public Uri EndpointUri
-        {
-            get { return this.context.EndpointDispatcher.EndpointAddress.Uri; }
-        }
+        // public Uri EndpointUri
+        // {
+        //     get { return this.context.EndpointDispatcher.EndpointAddress.Uri; }
+        // }
 
         public Uri ToHeader
         {
             get { return this.context.IncomingMessageHeaders.To; }
         }
 
-        public ServiceSecurityContext SecurityContext
-        {
-            get { return this.GetSecurityContext(); }
-        }
+        // public ServiceSecurityContext SecurityContext
+        // {
+        //     get { return this.GetSecurityContext(); }
+        // }
 
         // In the normal case, we'll use the OperationContext
         // found in the local thread. However, there are cases this won't work:
@@ -273,8 +275,10 @@
             {
                 if (owner != null)
                 {
-                    context = new WcfOperationContext(owner, PlatformContext.RequestFromHttpContext());
-                    owner.Extensions.Add(context);
+                    // TODO: server
+                    // TODO: http
+                    // context = new WcfOperationContext(owner, PlatformContext.RequestFromHttpContext());
+                    // owner.Extensions.Add(context);
                 }
 
                 // no server-side OperationContext to attach to
@@ -283,57 +287,62 @@
             return context;
         }
 
-        private ServiceSecurityContext GetSecurityContext()
+        private CoreWCF.ServiceSecurityContext GetSecurityContext()
         {
-            try
-            {
-                return this.context.ServiceSecurityContext;
-            }
-            catch (ObjectDisposedException)
-            {
-                // WCF message has been closed already
-                WcfEventSource.Log.RequestMessageClosed("reading", "ServiceSecurityContext");
-                return null;
-            }
+            // TODO: server
+            return null;
+            // try
+            // {
+            //     return this.context.ServiceSecurityContext;
+            // }
+            // catch (ObjectDisposedException)
+            // {
+            //     // WCF message has been closed already
+            //     WcfEventSource.Log.RequestMessageClosed("reading", "ServiceSecurityContext");
+            //     return null;
+            // }
         }
 
         private string DiscoverOperationName(OperationContext operationContext)
         {
-            var runtime = operationContext.EndpointDispatcher.DispatchRuntime;
-            string action = operationContext.IncomingMessageHeaders.Action;
-            if (!string.IsNullOrEmpty(action))
-            {
-                foreach (var op in runtime.Operations)
-                {
-                    if (op.Action == action)
-                    {
-                        return op.Name;
-                    }
-                }
-            }
-            else
-            {
-                // WebHttpDispatchOperationSelector will stick the
-                // selected operation name into a message property
-                return this.GetWebHttpOperationName(operationContext);
-            }
+            // TODO: server
 
-            var catchAll = runtime.UnhandledDispatchOperation;
-            if (catchAll != null)
-            {
-                return catchAll.Name;
-            }
+            // var runtime = operationContext.EndpointDispatcher.DispatchRuntime;
+            // string action = operationContext.IncomingMessageHeaders.Action;
+            // if (!string.IsNullOrEmpty(action))
+            // {
+            //     foreach (var op in runtime.Operations)
+            //     {
+            //         if (op.Action == action)
+            //         {
+            //             return op.Name;
+            //         }
+            //     }
+            // }
+            // else
+            // {
+            //     // WebHttpDispatchOperationSelector will stick the
+            //     // selected operation name into a message property
+            //     return this.GetWebHttpOperationName(operationContext);
+            // }
+
+            // var catchAll = runtime.UnhandledDispatchOperation;
+            // if (catchAll != null)
+            // {
+            //     return catchAll.Name;
+            // }
 
             return "*";
         }
 
         private string GetWebHttpOperationName(OperationContext operationContext)
         {
-            var name = WebHttpDispatchOperationSelector.HttpOperationNamePropertyName;
-            if (this.HasIncomingMessageProperty(name))
-            {
-                return this.GetIncomingMessageProperty(name) as string;
-            }
+            // TODO: HTTP
+            // var name = WebHttpDispatchOperationSelector.HttpOperationNamePropertyName;
+            // if (this.HasIncomingMessageProperty(name))
+            // {
+            //     return this.GetIncomingMessageProperty(name) as string;
+            // }
 
             return "<unknown>";
         }

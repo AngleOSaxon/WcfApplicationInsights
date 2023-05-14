@@ -3,6 +3,7 @@
     using System;
     using System.ServiceModel;
     using System.ServiceModel.Channels;
+    using Microsoft.ApplicationInsights;
 
     internal sealed class ClientTelemetryChannelFactory<TChannel> : ChannelFactoryBase<TChannel>, IChannelManager
     {

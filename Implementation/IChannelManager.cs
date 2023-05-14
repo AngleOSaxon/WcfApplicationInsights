@@ -2,6 +2,7 @@
 {
     using System;
     using System.ServiceModel;
+    using Microsoft.ApplicationInsights;
 
     internal interface IChannelManager : IDefaultCommunicationTimeouts
     {

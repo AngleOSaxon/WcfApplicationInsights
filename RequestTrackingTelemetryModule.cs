@@ -3,6 +3,7 @@
     using System;
     using System.Net;
     using System.ServiceModel.Channels;
+    using Microsoft.ApplicationInsights;
     using Microsoft.ApplicationInsights.DataContracts;
     using Microsoft.ApplicationInsights.Extensibility;
     using Microsoft.ApplicationInsights.Extensibility.Implementation;
@@ -48,8 +49,9 @@
                 telemetry.Start();
             }
 
-            telemetry.Url = operation.EndpointUri;
-            telemetry.Name = operation.OperationName;
+            // TODO: server
+            // telemetry.Url = operation.EndpointUri;
+            // telemetry.Name = operation.OperationName;
             telemetry.Properties["soapAction"] = operation.SoapAction;
 
             var httpHeaders = operation.GetHttpRequestHeaders();
