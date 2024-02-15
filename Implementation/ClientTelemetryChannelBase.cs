@@ -262,6 +262,7 @@
 
         protected virtual void OnClosed()
         {
+            this.Closed?.Invoke(this, new EventArgs());
         }
 
         private static void SetSoapHeader(Message message, string soapNS, string header, string value)
